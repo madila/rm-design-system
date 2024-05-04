@@ -1,0 +1,224 @@
+/*!
+Theme Name: RM Design System
+Theme URI: https://frames.rubenmadila.com/
+Author: Ruben Madila
+Author URI: https://rubenmadila.com/
+Description: Frames, the goodness of Wordpress on a single theme
+Version: 0.7.7
+Tested up to: 5.8
+Requires PHP: 7.3
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: designsystem
+Github Theme URI: madila/wp-design-system
+Primary Branch: main
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned.
+
+*
+
+ */
+
+
+@layer framework.layout {
+    p {
+        margin-block: 1rem;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+    --scroll: 0;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.wp-site-blocks {
+    max-width: 100vw;
+}
+
+body:not(.wp-ready) .wp-block-group.is-position-sticky .has-background {
+    opacity: 0;
+}
+
+html:not(.scrolled) .wp-block-group.is-position-sticky .has-background {
+    background: transparent !important;
+    transition: background-color 200ms linear, opacity 100ms linear;
+}
+
+html .wp-block-group.is-position-sticky .has-background {
+    backface-visibility: hidden;
+    will-change: transform;
+    transition: background-color 200ms linear;
+    background: color-mix(in srgb, var(--wp--preset--color--base) 95%, transparent) !important;
+}
+
+
+.wp-site-blocks > .is-position-sticky {
+    position: fixed;
+    left: 0;
+    right: 0;
+}
+
+
+html[data-scheme="dark"] .dark-mode__invert-image {
+    filter: invert(1);
+}
+
+html[data-scheme="dark"] .dark-mode__invert-background .wp-block-cover__image-background {
+    filter: invert(0.7);
+}
+
+.wp-block-cover.has-parallax .wp-block-cover__image-background {
+    position: absolute; /* make sure it stays put so we can see it! */
+    --motion-ratio: 100vh;
+    background-position-y: calc(var(--scroll) * var(--motion-ratio)) !important;
+    transition: background-position 133ms ease-out;
+    will-change: background-position-y;
+}
+
+.wp-block-cover.has-parallax {
+   --motion-ratio: 100vh;
+}
+
+.wp-block-cover {
+    --motion-ratio: 50vh;
+}
+
+.wp-block-cover .wp-block-cover__image-background {
+    object-position: 0% calc(var(--scroll) * var(--motion-ratio)) !important;
+    transition: object-position 133ms ease-out;
+    will-change: object-position;
+}
+
+.wp-block-cover__image-background {
+    animation-fill-mode: both;
+}
+
+.wp-block-group.has-parallax {
+    backface-visibility: hidden;
+    background-position-y: calc(var(--scroll) * 100%) !important;
+    transition: background-position 75ms linear;
+    will-change: background-position-y;
+}
+
+header .wp-block-design-system-dark-mode {
+    transition: transform 200ms linear;
+}
+
+html:not(.scrolled) header .wp-block-design-system-dark-mode {
+    transform: translateY(1rem);
+}
+
+html {
+    --motion-delay: 1;
+}
+
+html header .custom-logo-link {
+    max-width: 6rem;
+    display: block;
+    transition: max-width 200ms linear, transform 200ms linear;
+}
+
+html.scrolled header .custom-logo-link {
+    transform: none;
+    max-width: 4rem;
+}
+
+div:hover .hover__bounce {
+    animation: bounce 0.5s linear;
+    animation-iteration-count: 3;
+    animation-fill-mode: both;
+}
+
+@keyframes bounce {
+    50% {
+        transform: translateY(1rem)
+    }
+    to {
+        transform: translateY(0)
+    }
+}
+
+
+.is-style-tiltable.is-style-perspective {
+    left: var(--tilt-left);
+    top: var(--tilt-top);
+}
+
+.wp-block-cover.alignfull {
+    overflow-x: hidden;
+}
+
+html.scrolled [data-animation] {
+
+}
+
+[data-animation="fade-in"] {
+    transition: opacity 250ms linear 100ms;
+}
+
+[data-animation="fade-in"][data-invisible] {
+    transition: opacity 100ms linear;
+    opacity: 0;
+    will-change: opacity;
+}
+
+[data-animation="slide-down"] {
+    transition: transform 250ms linear 100ms, opacity 250ms linear 100ms;
+}
+
+[data-animation="slide-down"][data-invisible] {
+    transition: transform 100ms linear 100ms, opacity 100ms linear 100ms;
+    transform: translateY(-4rem);
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+
+[data-animation="slide-up"] {
+    transition: transform 450ms linear 100ms, opacity 400ms linear 100ms;
+}
+
+[data-animation="slide-up"][data-invisible] {
+    transition: transform 100ms linear 100ms, opacity 100ms linear 100ms;
+    transform: translateY(2rem);
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+
+
+
+.wp-site-blocks > .is-position-sticky {
+    position: fixed;
+    left: 0;
+    right: 0;
+}
+
+html:not(.scrolled) .wp-site-blocks > .is-position-sticky {
+    filter: invert(1);
+}
+
+.entry-content {
+    margin-block-start: 0;
+}
+
+@keyframes parallax-effect {
+    to { transform: translateY(50vh) }
+}
+
+.wp-block-cover.has-triangle-overlay .wp-block-cover__background {
+    /*clip-path: polygon(0 0, 0% 150%, 150% 0);*/
+    animation: parallax-effect linear both;
+    animation-timeline: scroll(block root);
+    animation-range: 0 100vh;
+    -webkit-clip-path: url(#blob);
+    clip-path: url(#blob);
+}
+
+
